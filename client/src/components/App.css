@@ -1,0 +1,35 @@
+.nav {
+    background-color: maroon;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.nav h3 {
+    margin-top: 35px;
+}
+
+.nav img {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+}
+
+.nav li {
+    text-decoration: none;
+}
+
+.nav li.active  {
+    border-radius: 75%;
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+}
+
+.nav li:hover {
+    background-color: black;
+    padding: 10px;
+}
