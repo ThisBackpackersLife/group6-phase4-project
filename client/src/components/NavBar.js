@@ -2,38 +2,38 @@ import React from "react";
 import {Link} from "react-router-dom"
 import "./App.css"
 import Logo from "../Images/logo.png"
-
-const linkStyles = {
-    color: "inherit",
-    textDecoration: "none",
-};
-
+import UserIcon from "../Images/UserIcon.png"
 
 function NavBar() {
 
     return (
         <header>
             <nav className = "nav">
-                <img src={Logo}></img>
-                <h3>Culinary Critic</h3>
-                <ul className="nav-ul">
-                    <li className="active">
+                <Link 
+                    to= "/" 
+                    className="link"
+                >
+                    <img src={Logo} alt="No Logo Available"></img>
+                    <h3>Culinary Critic</h3>
+                </Link>
+                <div className="nav-ul">
+                    <div className="active">
                         <Link 
                             to="/"
-                            style={linkStyles}
+                            className="link"
                         >
                             Home
                         </Link>
-                    </li>
-                    <li className="active">
+                    </div>
+                    <div className="active">
                         <Link 
                             to="/Sign"
-                            style={linkStyles}
+                            className="link"
                         >
-                            Sign
+                            <img src={UserIcon} alt="No Logo Available"></img>
                         </Link>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </nav>
         </header>
     );
