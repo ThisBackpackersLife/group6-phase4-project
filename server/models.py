@@ -14,7 +14,8 @@ class User( db.Model, SerializerMixin ):
 
     id = db.Column( db.Integer, primary_key=True )
     username = db.Column( db.String )
-    _password_hash = db.Column( db.String )
+    email = db.Column( db.String, unique = True )
+    _password_hash = db.Column( db.String( 1, 30 ) )
     created_at = db.Column( db.DateTime, server_default=db.func.now() )
     updated_at = db.Column( db.DateTime, onupdate=db.func.now() )
 
@@ -52,10 +53,11 @@ class Restaurant( db.Model, SerializerMixin ):
     created_at = db.Column( db.DateTime, server_default=db.func.now() )
     updated_at = db.Column( db.DateTime, onupdate=db.func.now() )
 
-    user_id = db.Column( db.Integer, db.ForeignKey( 'users.id' ) )
+    reviews = db.relationship( 'Review', backref = 'restaurant' )
+    users = association_proxy( 'reviews', 'user' )
 
     def __repr__( self ):
-        return f'<Restaurant ID: { self.id }, name:{ self.name }, user_id:{ self.user_id }'
+        return f'<Restaurant ID: { self.id }, name:{ self.name }'
 
 class Review( db.Model, SerializerMixin ):
     __tablename__ = "reviews"
@@ -71,9 +73,6 @@ class Review( db.Model, SerializerMixin ):
 
     user_id = db.Column( db.Integer, db.ForeignKey( 'users.id' ) )
     restaurant_id = db.Column( db.String, db.ForeignKey( 'restaurants.id' ))
-
-    restaurant = db.relationship( 'Restaurant', backref = 'reviews' )
-    users = association_proxy( 'user', 'reviews' )
 
     def __repr__( self ):
         return f'<Review ID:{ self. id }, Rating: { self.rating }, user_id:{ self.user_id }, restaurant_id:{ self.restaurant_id }'
