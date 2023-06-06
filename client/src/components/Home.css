@@ -1,0 +1,32 @@
+.hero-section {
+    background-image: url('https://sensientflavorsandextracts.com/wp-content/uploads/2021/07/GettyImages-1191080960-1-1024x553.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.cta-btn {
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+}
+
+.features-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.feature-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+}

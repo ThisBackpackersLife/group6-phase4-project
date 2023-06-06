@@ -1,0 +1,26 @@
+.restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.restaurant-item {
+    width: 200px;
+    margin: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.restaurant-image {
+    width: 100%;
+    height: auto;
+}
+
+.restaurant-name {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.restaurant-price {
+    font-size: 18px;
+}
