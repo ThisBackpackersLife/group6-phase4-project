@@ -129,7 +129,7 @@ def restaurants():
 
         return make_response( jsonify( restaurant_to_dict( new_restaurant )), 201 )
     
-@app.route( '/restaurants/<int:id>', methods=[ "GET", "PATCH", "DELETE" ] )
+@app.route( '/restaurant/<int:id>', methods=[ "GET", "PATCH", "DELETE" ] )
 def restaurant( id ):
     restaurant = Restaurant.query.filter( Restaurant.id == id ).first()
 
@@ -148,9 +148,56 @@ def restaurant( id ):
                 return make_response( "No data provided for updating restaurant.", 400 )
         
         elif request.method == "DELETE":
-            pass
+            db.session.delete( restaurant )
+            db.session.commit()
+
+            return make_response( '', 404 )
     else:
         return make_response( "Restaurant not found.", 404 )
+
+@app.route( '/reviews', methods=[ "GET", "POST" ] )
+def reviews():
+    if request.method == "GET":
+        reviews = [ review_to_dict( review ) for review in Review.query.all() ]
+        return make_response( jsonify( reviews ), 200 )
+    
+    elif request.method == "POST":
+        new_review = Review(
+            body = request.get_json()[ 'body' ],
+            rating = request.get_json()[ 'rating' ],
+            image = request.get_json()[ 'image' ],
+            user_id = request.get_json()[ 'user_id' ],
+            restaurant_id = request.get_json()[ 'restaurant_id' ]
+        )
+        db.session.add( new_review )
+        db.session.commit()
+
+        return make_response( jsonify( review_to_dict( new_review )), 201 )
+
+@app.route( '/review/<int:id>', methods=[ "GET", "PATCH", "DELETE" ] )
+def review( id ):
+    review = Review.query.filter( Review.id == id ).first()
+
+    if review:
+        if request.method == "GET":
+            return make_response( jsonify( review_to_dict( review )), 200 )
+        
+        elif request.method == "PATCH":
+            data = request.get_json()
+            if data:
+                for attr, value in data.items():
+                    setattr( review, attr, value )
+                db.session.commit()
+                return make_response( jsonify( review_to_dict( review )), 200 )
+            else:
+                return make_response( "No data provided for updating review.", 400 )
+            
+        elif request.method == "DELETE":
+            db.session.delete( review )
+            db.session.commit()
+            return make_response( '', 404 )
+    else:
+        return make_response( "Review not found.", 404 )
 
 def user_to_dict( user ):
     return {
@@ -166,6 +213,16 @@ def restaurant_to_dict( restaurant ):
         "name": restaurant.name,
         "image": restaurant.image,
         "address": restaurant.address
+    }
+
+def review_to_dict( review ):
+    return {
+        "id": review.id,
+        "body": review.body,
+        "rating": review.rating,
+        "image": review.image,
+        "user_id": review.user_id,
+        "restaurant_id": review.restaurant_id
     }
 
 if __name__ == '__main__':
