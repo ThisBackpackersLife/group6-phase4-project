@@ -14,13 +14,20 @@ class User( db.Model, SerializerMixin ):
 
     id = db.Column( db.Integer, primary_key=True )
     username = db.Column( db.String )
-    email = db.Column( db.String, unique = True )
-    _password_hash = db.Column( db.String( 1, 30 ) )
+    email = db.Column( db.String, unique=True )
+    _password_hash = db.Column( db.String( 30 ) )
     created_at = db.Column( db.DateTime, server_default=db.func.now() )
     updated_at = db.Column( db.DateTime, onupdate=db.func.now() )
 
     reviews = db.relationship( 'Review', backref = 'user' )
     restaurants = association_proxy( 'reviews', 'restaurant' )
+
+    def user_info( self ):
+        return {
+            "username": self.username,
+            "email": self.email,
+            "id": self.id
+        }
 
     @hybrid_property
     def password_hash( self ):

@@ -5,13 +5,18 @@ from flask import make_response, jsonify, request, session
 
 # Local imports
 from config import app, db, api, Resource
-from models import db, User, Restaurant, Review
+from models import User, Restaurant, Review
 
 # Views go here!
 
 @app.route('/')
 def home():
     return '<h1>Welcome to the Culinary Critic</h1>'
+
+# @app.route( '/clear', methods=[ "DELETE" ] )
+# def clear_session():
+#     if request.method == "DELETE":
+#         db.session.delete()
 
 class ClearSession( Resource ):
     
@@ -44,7 +49,7 @@ class Signup( Resource ):
 
             session[ 'user_id' ] = new_user.id
         
-            return new_user.to_dict(), 201
+            return new_user.user_info(), 201
         else:
             return { "error": "Unprocessable Entity" }, 422
         
@@ -53,7 +58,7 @@ class CheckSession( Resource ):
     def get( self ):
         if session.get( 'user_id' ):
             user = User.query.filter( User.id == session[ 'user_id' ]).first()
-            return user.to_dict(), 200
+            return user.user_info(), 200
         else:
             return {}, 204
         
@@ -70,7 +75,7 @@ class Login( Resource ):
 
         if user.authenticate( password ):
             session[ 'user_id' ] = user.id
-            return user.to_dict(), 200
+            return user.user_info(), 200
         else:
             return { "error": "Members Only Content, Unauthorized Access!"}, 401
         
@@ -94,7 +99,7 @@ def users():
         users = [ user_to_dict( user ) for user in User.query.all() ]
         return make_response( jsonify( users ), 200 )
 
-@app.route( '/users/<int:id>', methods=[ "GET", "DELETE" ] )
+@app.route( '/user/<int:id>', methods=[ "GET", "DELETE" ] )
 def user( id ):
     user = User.query.filter( User.id == id ).first()
     if user:
