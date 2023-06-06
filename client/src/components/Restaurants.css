@@ -1,26 +1,31 @@
-.restaurant-list {
+.restaurants {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 70px); /* 100% of the viewport height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 1rem;
+    padding-top: 70px;
 }
 
-.restaurant-item {
-    width: 200px;
-    margin: 20px;
-    cursor: pointer;
-    text-align: center;
+.restaurant-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    width: 80%; /* Adjust as needed */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.restaurant-image {
-    width: 100%;
-    height: auto;
+.restaurant-card img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-.restaurant-name {
-    margin-top: 10px;
-    font-size: 20px;
-}
-
-.restaurant-price {
-    font-size: 18px;
+.restaurant-info {
+    margin-left: 1rem;
 }

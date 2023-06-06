@@ -12,16 +12,18 @@ const restaurantData = [
 function Restaurants() {
     const history = useHistory();
     return (
-        <div className="restaurant-list">
+        <div className="restaurants">
             {restaurantData.map((restaurant, index) => (
                 <div 
-                    className="restaurant-item" 
+                    className="restaurant-card" 
                     key={index}
                     onClick={() => history.push(`/restaurant/${restaurant.name}`)}  
                 >
-                    <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
-                    <h2 className="restaurant-name">{restaurant.name}</h2>
-                    <p className="restaurant-price">{restaurant.price}</p>
+                    <img src={restaurant.image} alt={restaurant.name} />
+                    <div className="restaurant-info">
+                        <h2>{restaurant.name}</h2>
+                        <p>{restaurant.price}</p>
+                    </div>
                 </div>
             ))}
         </div>
@@ -29,3 +31,4 @@ function Restaurants() {
 }
 
 export default Restaurants;
+

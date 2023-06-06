@@ -12,8 +12,11 @@ function NavBar() {
                     to= "/" 
                     className="link"
                 >
-                    <img src={Logo} alt="Logo"></img>
-                    <h3>Culinary Critic</h3>
+                    <div className="logo-container">
+                        <img src={Logo} alt="No Logo Available"></img>
+                        <h3>Culinary Critic</h3>
+                    </div>
+            
                 </Link>
                 <div className="nav-ul">
                     <div className="active">
