@@ -81,57 +81,91 @@ class Logout( Resource ):
         session[ 'user_id' ] = None
 
         return {}, 204
-    
-class Users( Resource ):
 
-    def get( self ):
-
-        response = [ user.to_dict() for user in User.query.all() ]
-
-        return make_response( jsonify( response, 200, ))
-    
-class UserByID( Resource ):
-
-    def get( self, id ):
-        
-        response = User.query.filter( User.id == id).first().to_dict()
-
-        return make_response( jsonify( response, 200, ) )
-
-class Restaurants( Resource ):
-
-    def get( self ):
-
-        response = [ r.to_dict() for r in Restaurant.query.all() ]
-
-        return make_response( jsonify( response, 200,))
-    
-    def post( self ):
-
-        new_restaurant = Restaurant(
-            name = request.form[ 'name' ],
-            image = request.form[ 'image' ],
-            address = request.form[ 'address' ],
-        )
-        db.session.add( new_restaurant )
-        db.session.commit()
-
-        response = new_restaurant.to_dict()
-
-        return make_response( jsonify( response, 201 ) )
-    
 api.add_resource( ClearSession, '/clear', endpoint = 'clear' )
 api.add_resource( Signup, '/signup', endpoint = 'signup' )
 api.add_resource( CheckSession, '/check_session', endpoint='check_session' )
 api.add_resource( Login, '/login', endpoint='login' )
 api.add_resource( Logout, '/logout', endpoint='logout' )
-api.add_resource( Users, '/users', endpoint='users' )
-api.add_resource( UserByID, '/users_by_id/<int:id>' )
-api.add_resource( Restaurants, '/restaurants', endpoint='restaurants' )
 
+@app.route( '/users', methods=[ "GET" ] )
+def users():
+    if request.method == "GET":
+        users = [ user_to_dict( user ) for user in User.query.all() ]
+        return make_response( jsonify( users ), 200 )
 
+@app.route( '/users/<int:id>', methods=[ "GET", "DELETE" ] )
+def user( id ):
+    user = User.query.filter( User.id == id ).first()
+    if user:
+        if request.method == "GET":
+            return make_response( jsonify( user_to_dict( user) ), 200 )
+        
+        elif request.method == "DELETE":
+            Review.query.filter_by( user_id = id ).delete()
+            db.session.delete( user )
+            db.session.commit()
 
+            return make_response( '', 404 )
+    
+    else:
+        return make_response( "User not found.", 404 )
 
+@app.route( '/restaurants', methods=[ "GET", "POST" ] )
+def restaurants():
+    if request.method == "GET":
+        restaurants = [ restaurant_to_dict( restaurant ) for restaurant in Restaurant.query.all() ]
+        return make_response( jsonify( restaurants ), 200 )
+    
+    elif request.method == "POST":
+        new_restaurant = Restaurant(
+            name = request.get_json()[ 'name' ],
+            address = request.get_json()[ 'address' ],
+            image = request.get_json()[ 'image' ]
+        )
+        db.session.add( new_restaurant )
+        db.session.commit()
+
+        return make_response( jsonify( restaurant_to_dict( new_restaurant )), 201 )
+    
+@app.route( '/restaurants/<int:id>', methods=[ "GET", "PATCH", "DELETE" ] )
+def restaurant( id ):
+    restaurant = Restaurant.query.filter( Restaurant.id == id ).first()
+
+    if restaurant:
+        if request.method == "GET":
+            return make_response( jsonify( restaurant_to_dict( restaurant )), 200 )
+        
+        elif request.method == "PATCH":
+            data = request.get_json()
+            if data:
+                for attr, value in data.items():
+                    setattr( restaurant, attr, value )
+                db.session.commit()
+                return make_response( jsonify( restaurant_to_dict( restaurant )), 200 )
+            else:
+                return make_response( "No data provided for updating restaurant.", 400 )
+        
+        elif request.method == "DELETE":
+            pass
+    else:
+        return make_response( "Restaurant not found.", 404 )
+
+def user_to_dict( user ):
+    return {
+        "id": user.id,
+        "username": user.username,
+        "_password_hash": user._password_hash,
+        "email": user.email
+    }
+
+def restaurant_to_dict( restaurant ):
+    return {
+        "id": restaurant.id,
+        "name": restaurant.name,
+        "image": restaurant.image,
+        "address": restaurant.address
+    }
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
