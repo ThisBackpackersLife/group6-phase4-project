@@ -22,15 +22,15 @@ function Sign() {
         }
     }
 
-    // const userLogIn = async () => {
-    //     const response = await httpClient.post("//localhost:5555/login", {
-    //         username,
-    //         password,
-    //     })
-    //     if (response.status == 200){
-    //         window.location.href = "/"
-    //     }
-    // }
+    const userLogIn = async () => {
+        const response = await httpClient.post("//localhost:5555/login", {
+            username,
+            password,
+        })
+        if (response.status == 200){
+            window.location.href = "/"
+        }
+    }
 
     return (
         <main>

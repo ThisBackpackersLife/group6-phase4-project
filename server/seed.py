@@ -10,9 +10,26 @@ from faker import Faker
 from app import app
 from models import db, User, Review, Restaurant
 
+
+restaurant_address = open("./data/RestaurantsAddress.txt", "r")
+image_url = open("./data/ImageUrls.txt", "r")
+restaurant_name = open("./data/Restaurants.txt", "r")
+
+
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
+
+        names = []
+        urls = []
+        addresses = []
+        for name in restaurant_name:
+            names.append(name.replace("\n",""))
+        for image in image_url:
+            urls.append(image.replace("\n",""))
+        for address in restaurant_address:
+            addresses.append(address.replace("\n",""))
+
         print("Starting seed...")
         # Seed code goes here!
 
@@ -22,42 +39,40 @@ if __name__ == '__main__':
         Restaurant.query.delete()
 
         print( "Creating users..." )
-        u1 = User( username = "Nicholas Martin", email = "oweij@gmail.com", _password_hash = "1234567" )
-        u2 = User( username = "Warren Zhang", email = "oiweawoe@protonmail.com", _password_hash = "1234567" )
-        u3 = User( username = "Yasmeen Yousef", email = "asdfwerf@hotmail.com", _password_hash = "1234567" )
-        u4 = User( username = fake.name(), email = "cawcdf@aol.com", _password_hash = "1234567" )
-        u5 = User( username = fake.name(), email = "htrhrsa@yahoo.com", _password_hash = "1234asdf" )
-        users = [ u1, u2, u3, u4, u5 ]
-
+        users = []
+        for i in range(100):
+            user = User(
+                username = fake.first_name(),
+                email = fake.email(),
+                _password_hash = randint(1000000,9999999)
+            )
+            users.append(user)
 
         print( "Creating restaurants..." )
-        res1 = Restaurant( name = "Pappy's STL BBQ", image = "iyuwe.jpg", address = fake.sentence() )
-        res2 = Restaurant( name = "Hopdoddy Burger Bar", image = "owqeiur.jpg", address = fake.sentence() )
-        res3 = Restaurant( name = "Adrianna's", image = "awetrwe.jpg", address = fake.sentence() )
-        res4 = Restaurant( name = "Oyster House", image = "iowue.jpg", address = fake.sentence() )
-        res5 = Restaurant( name = "Sugarfire", image = "awearf.jpg", address = fake.sentence() ) 
-        restaurants = [ res1, res2, res3, res4, res5 ]
+        restaurants = []
+        for i in range(50):
+            restaurant = Restaurant(
+                name = names[i],
+                image = urls[i],
+                address = addresses[i]
+            )
+            restaurants.append(restaurant)
 
         print( "Creating reviews..." )
-        r1 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "kjlkiidj.jpg", user_id = 1, restaurant_id = 1 )
-        r2 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "dkjoizse.jpg", user_id = 2, restaurant_id = 2 )
-        r3 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "kjpaise.jpg", user_id = 3, restaurant_id = 3 )
-        r4 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "duiooaiweuf.jpg", user_id = 4, restaurant_id = 4 )
-        r5 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 5, restaurant_id = 5 )
-        r6 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 2, restaurant_id = 4 )
-        r7 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 4, restaurant_id = 5 )
-        r8 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 3, restaurant_id = 1 )
-        r9 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 1, restaurant_id = 3 )
-        r10 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 1, restaurant_id = 2 )
-        r11 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 3, restaurant_id = 3 )
-        r12 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 4, restaurant_id = 4 )
-        r13 = Review( body = fake.paragraph( nb_sentences=4 ), rating = randint( 1, 5 ), image = "ioaweawek.jpg", user_id = 2, restaurant_id = 1 )
-
-        reviews = [ r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13 ]
+        reviews = []
+        for i in range(100):
+            review = Review(
+                body = fake.paragraph( nb_sentences=4 ), 
+                rating = randint( 1, 5 ),
+                image = urls[randint(0,49)],
+                user_id = randint(1,100),
+                restaurant_id = randint(1,100)
+            )
+            reviews.append(review)
 
         db.session.add_all( users )
-        db.session.add_all( reviews )
         db.session.add_all( restaurants )
+        db.session.add_all( reviews )
         db.session.commit()
 
         print( "Seeding complete!" )
