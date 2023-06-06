@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Sign.css";
+import httpClient from "./httpClient";
 
 function Sign() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("")
 
     function Sign(){
         const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -18,6 +22,16 @@ function Sign() {
         }
     }
 
+    // const userLogIn = async () => {
+    //     const response = await httpClient.post("//localhost:5555/login", {
+    //         username,
+    //         password,
+    //     })
+    //     if (response.status == 200){
+    //         window.location.href = "/"
+    //     }
+    // }
+
     return (
         <main>
             <div className="container">
@@ -30,7 +44,8 @@ function Sign() {
                                 <input
                                     type="text"
                                     placeholder="Username"
-                                    
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                             <div className="input-field">
@@ -38,14 +53,17 @@ function Sign() {
                                 <input
                                     type="password"
                                     placeholder="Password"
-                                    
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <input
-                            type="submit"
-                            value="Login"
+                            <button
+                            type="button"
+                            onClick={() => userLogIn()}
                             className="btn solid"
-                            />
+                            >
+                                Log In
+                            </button>
                         </form>
                         <form action="#" className="sign-up-form">
                             <h2 className="title">Sign up</h2>
@@ -54,6 +72,8 @@ function Sign() {
                                 <input
                                     type="text"
                                     placeholder="Username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                             <div className="input-field">
@@ -61,6 +81,8 @@ function Sign() {
                                 <input
                                     type="email"
                                     placeholder="Email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="input-field">
@@ -68,6 +90,8 @@ function Sign() {
                                 <input
                                     type="password"
                                     placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                             <input

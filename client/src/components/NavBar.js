@@ -30,7 +30,7 @@ function NavBar() {
                             to="/Sign"
                             className="link"
                         >
-                            <img src={UserIcon} alt="No Logo Available"></img>
+                            <img src={UserIcon} alt="No Icon Available"></img>
                         </Link>
                     </div>
                 </div>
