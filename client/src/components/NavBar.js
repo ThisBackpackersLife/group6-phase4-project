@@ -17,7 +17,7 @@ function NavBar() {
                     <h3>Culinary Critic</h3>
                 </Link>
                 <div className="nav-ul">
-                    <div className="active">
+                    <div className="active0">
                         <Link 
                             to="/"
                             className="link"
