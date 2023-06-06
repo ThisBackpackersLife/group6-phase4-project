@@ -1,30 +1,28 @@
 import React from "react";
-import './Home.css';
+import "./Home.css";
 
-const Home = () => {
+function Home() {
     return (
-        <div>
-            {/* Hero section */}
-            <div className="hero-section">
-            </div>
-
-            {/* Features section */}
-            <div className="features-section">
-                <div className="feature-card">
-                    <h2>Discover</h2>
-                    <p>Find the best restaurants around you.</p>
+        <div className="home-container">
+            <section className="hero-section">
+                <h1 className="home-heading">Welcome to Culinary Critic</h1>
+            </section>
+            <section className="features-section">
+                <div className="feature-box">
+                    <h2 className="feature-heading">Discover</h2>
+                    <p className="feature-description">Find new restaurants around you.</p>
                 </div>
-                <div className="feature-card">
-                    <h2>Rate</h2>
-                    <p>Rate your experiences and help others make informed choices.</p>
+                <div className="feature-box">
+                    <h2 className="feature-heading">Rate</h2>
+                    <p className="feature-description">Rate and review your favorite places.</p>
                 </div>
-                <div className="feature-card">
-                    <h2>Share</h2>
-                    <p>Share your culinary adventures with the world.</p>
+                <div className="feature-box">
+                    <h2 className="feature-heading">Share</h2>
+                    <p className="feature-description">Share your experiences with friends.</p>
                 </div>
-            </div>
+            </section>
         </div>
     );
-};
+}
 
 export default Home;

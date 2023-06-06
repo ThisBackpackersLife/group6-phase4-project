@@ -1,32 +1,52 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.home-container {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
 .hero-section {
-    background-image: url('https://sensientflavorsandextracts.com/wp-content/uploads/2021/07/GettyImages-1191080960-1-1024x553.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    color: #fff;
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    text-align: center;
+    background: url("https://sensientflavorsandextracts.com/wp-content/uploads/2021/07/GettyImages-1191080960-1-1024x553.jpg") no-repeat center center/cover;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.cta-btn {
-    margin-top: 1rem;
-    padding: 1rem 2rem;
+.home-heading {
+    font-size: 3em;
 }
 
 .features-section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 1rem;
-    text-align: center;
+    background: linear-gradient(to right, #f78ca0, #f9748f, #fd868c, #fe9a8b);
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 0;
 }
 
-.feature-card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
+.feature-box {
+    background: white;
+    border-radius: 20px;
+    width: 200px;
+    padding: 20px;
+    box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+    transition: all 0.3s ease-in-out;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+}
+
+.feature-heading {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    color: #666;
+    line-height: 1.6;
 }
