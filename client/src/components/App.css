@@ -1,46 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
-.nav {    
-    background-color: maroon;
+.nav {
+    background: linear-gradient(to right, maroon, #c52f82);
     color: white;
     display: flex;
-    gap: .5rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
     border-radius: 10px 10px 0px 0px;
-    text-decoration: none;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 
 .nav h3 {
-    font-size: 23px;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10px;
 }
 
 .nav img {
-    height: 40px;
-    width: 40px;
-    padding: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
 .nav-ul {
     display: flex;
     align-items: center;
-    position: fixed;
-    right: 0;
-    font-size: 20px;
 }
 
 .active {
-    margin-right: 10px;
-}
-
-.active0 {
-    margin-right: 10px;
-    margin-left: 10px;
-    background-color: black;
-    padding: .5rem;
-    border-radius: 10px;
+    margin: 0 10px;
 }
 
 .link {
     color: inherit;
     text-decoration: none;
-    display: flex;
+    transition: color 0.3s ease-in-out;
+}
+
+.link:hover {
+    color: #b8a2e6;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 10px #4a00e0;
 }
