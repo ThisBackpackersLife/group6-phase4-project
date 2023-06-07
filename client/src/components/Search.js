@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { restaurantData } from "./Restaurants";
 
 const Search = () => {
     const [keyword, setKeyword] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [price, setPrice] = useState('');
     const [diet, setDiet] = useState('');
+    const [results, setResults] = useState([]);
 
     const handleSearch = () => {
         const filteredData = restaurantData.filter(restaurant =>
@@ -15,7 +17,6 @@ const Search = () => {
         );
         setResults(filteredData);
     };
-    
 
     return (
         <div>
@@ -33,7 +34,7 @@ const Search = () => {
                 <option value="Italian">Italian</option>
                 <option value="Mexican">Mexican</option>
                 <option value="Indian">Indian</option>
-                // Add more cuisines as needed
+                {/* Add more cuisines as needed */}
             </select>
             <select value={price} onChange={(e) => setPrice(e.target.value)}>
                 <option value="">--Select Price Range--</option>
@@ -46,8 +47,18 @@ const Search = () => {
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="gluten-free">Gluten-Free</option>
-                // Add more diets as needed
+                {/* Add more diets as needed */}
             </select>
+
+            {/* Display search results */}
+            {results.map((restaurant, index) => (
+                <div key={index}>
+                    <h2>{restaurant.name}</h2>
+                    <p>{restaurant.price}</p>
+                    <p>{restaurant.cuisine}</p>
+                    <p>{restaurant.diet}</p>
+                </div>
+            ))}
         </div>
     );
 };

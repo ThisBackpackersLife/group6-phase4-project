@@ -30,27 +30,10 @@ function NavBar({user}) {
                             Restaurants
                         </Link>
                     </div>
-                    {user != "" ? (
-                        <div className="active">
-                            <Link
-                                to="/Profile"
-                                className="link"
-                            >
-                                <img  src={UserIcon} alt="User"></img>
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className="active">
-                            <Link 
-                                to="/Sign"
-                                className="link"
-                            >
-                                <img src={UserIcon} alt="User"></img>
-                            </Link>
-                        </div>
-                    )}
-                    <div>
-                        <input type="text" placeholder="Search..." className="search-bar" /> {/* Search bar */}
+                    <div className="active user-icon-container">
+                        <Link to="/Sign" className="link">
+                            <img src={UserIcon} alt="No Logo Available"></img>
+                        </Link>
                     </div>
                 </div>
             </nav>
