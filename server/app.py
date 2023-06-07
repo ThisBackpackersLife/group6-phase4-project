@@ -5,18 +5,13 @@ from flask import make_response, jsonify, request, session
 
 # Local imports
 from config import app, db, api, Resource
-from models import User, Restaurant, Review
+from models import db, User, Restaurant, Review
 
 # Views go here!
 
 @app.route('/')
 def home():
     return '<h1>Welcome to the Culinary Critic</h1>'
-
-# @app.route( '/clear', methods=[ "DELETE" ] )
-# def clear_session():
-#     if request.method == "DELETE":
-#         db.session.delete()
 
 class ClearSession( Resource ):
     
@@ -35,13 +30,15 @@ class Signup( Resource ):
             username = request.get_json()[ 'username' ]
             email = request.get_json()[ 'email' ]
             password = request.get_json()[ 'password' ]
+            avatar = request.get_json()[ 'avatar' ]
         except KeyError:
-            return { "error": "Missing 'username' or 'password'." }, 400
+            return { "error": "Missing a required field in the form." }, 400
         
         if username and password:
             new_user = User(
                 username = username,
                 email = email, 
+                avatar = avatar,
             )
             new_user.password_hash = password
             db.session.add( new_user )
@@ -49,7 +46,7 @@ class Signup( Resource ):
 
             session[ 'user_id' ] = new_user.id
         
-            return new_user.user_info(), 201
+            return user_to_dict( new_user ), 201
         else:
             return { "error": "Unprocessable Entity" }, 422
         
@@ -58,7 +55,7 @@ class CheckSession( Resource ):
     def get( self ):
         if session.get( 'user_id' ):
             user = User.query.filter( User.id == session[ 'user_id' ]).first()
-            return user.user_info(), 200
+            return user_to_dict( user ), 200
         else:
             return {}, 204
         
@@ -75,7 +72,7 @@ class Login( Resource ):
 
         if user.authenticate( password ):
             session[ 'user_id' ] = user.id
-            return user.user_info(), 200
+            return user_to_dict( user ), 200
         else:
             return { "error": "Members Only Content, Unauthorized Access!"}, 401
         
@@ -99,7 +96,7 @@ def users():
         users = [ user_to_dict( user ) for user in User.query.all() ]
         return make_response( jsonify( users ), 200 )
 
-@app.route( '/user/<int:id>', methods=[ "GET", "DELETE" ] )
+@app.route( '/users/<int:id>', methods=[ "GET", "DELETE" ] )
 def user( id ):
     user = User.query.filter( User.id == id ).first()
     if user:
@@ -208,7 +205,8 @@ def user_to_dict( user ):
         "id": user.id,
         "username": user.username,
         "_password_hash": user._password_hash,
-        "email": user.email
+        "email": user.email,
+        "avatar": user.avatar
     }
 
 def restaurant_to_dict( restaurant ):
