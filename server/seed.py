@@ -22,11 +22,11 @@ if __name__ == '__main__':
         Restaurant.query.delete()
 
         print( "Creating users..." )
-        u1 = User( username = "Nicholas Martin", email = "oweij@gmail.com", _password_hash = "1234567" )
-        u2 = User( username = "Warren Zhang", email = "oiweawoe@protonmail.com", _password_hash = "1234567" )
-        u3 = User( username = "Yasmeen Yousef", email = "asdfwerf@hotmail.com", _password_hash = "1234567" )
-        u4 = User( username = fake.name(), email = "cawcdf@aol.com", _password_hash = "1234567" )
-        u5 = User( username = fake.name(), email = "htrhrsa@yahoo.com", _password_hash = "1234asdf" )
+        u1 = User( username = "Nicholas Martin", email = "oweij@gmail.com", _password_hash = "1234567", avatar="aosdlijf" )
+        u2 = User( username = "Warren Zhang", email = "oiweawoe@protonmail.com", _password_hash = "1234567", avatar="apoiuoiweu" )
+        u3 = User( username = "Yasmeen Yousef", email = "asdfwerf@hotmail.com", _password_hash = "1234567", avatar="iuouawe" )
+        u4 = User( username = fake.name(), email = "cawcdf@aol.com", _password_hash = "1234567", avatar="qwfoaodfweew" )
+        u5 = User( username = fake.name(), email = "htrhrsa@yahoo.com", _password_hash = "1234asdf", avatar="eaoueff" )
         users = [ u1, u2, u3, u4, u5 ]
 
 
