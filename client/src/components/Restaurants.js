@@ -1,16 +1,18 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import './Restaurants.css';
+import { useState } from "react";
 
-const restaurantData = [
-    { name: "Restaurant 1", image: "/path/to/image1", price: "$$$" },
-    { name: "Restaurant 2", image: "/path/to/image2", price: "$$" },
-    { name: "Restaurant 3", image: "/path/to/image3", price: "$" },
+export const restaurantData = [
+    { name: "Restaurant 1", image: "/path/to/image1", price: "$$$", cuisine: "Italian", diet: "Vegetarian" },
+    { name: "Restaurant 2", image: "/path/to/image2", price: "$$", cuisine: "Mexican", diet: "Vegan" },
+    { name: "Restaurant 3", image: "/path/to/image3", price: "$", cuisine: "Indian", diet: "Gluten-Free" },
     // add more restaurant data here
 ];
 
 function Restaurants() {
     const history = useHistory();
+
     return (
         <div className="restaurants">
             {restaurantData.map((restaurant, index) => (
@@ -31,4 +33,5 @@ function Restaurants() {
 }
 
 export default Restaurants;
+
 

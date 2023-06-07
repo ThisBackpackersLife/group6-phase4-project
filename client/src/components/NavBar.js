@@ -30,7 +30,7 @@ function NavBar() {
                             Restaurants
                         </Link>
                     </div>
-                    <div className="active">
+                    <div className="active user-icon-container">
                         <Link to="/Sign" className="link">
                             <img src={UserIcon} alt="No Logo Available"></img>
                         </Link>
