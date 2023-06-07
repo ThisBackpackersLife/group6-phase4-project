@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { restaurantData } from "./Restaurants";
+import { restaurants } from "./Restaurants.js";
 
 const Search = () => {
     const [keyword, setKeyword] = useState('');
@@ -8,15 +8,15 @@ const Search = () => {
     const [diet, setDiet] = useState('');
     const [results, setResults] = useState([]);
 
-    const handleSearch = () => {
-        const filteredData = restaurantData.filter(restaurant =>
-            restaurant.name.toLowerCase().includes(keyword.toLowerCase()) &&
-            (cuisine ? restaurant.cuisine === cuisine : true) &&
-            (price ? restaurant.price === price : true) &&
-            (diet ? restaurant.diet === diet : true)
-        );
-        setResults(filteredData);
-    };
+    // const handleSearch = () => {
+    //     const filteredData = restaurants.filter(restaurant =>
+    //         restaurant.name.toLowerCase().includes(keyword.toLowerCase()) &&
+    //         (cuisine ? restaurant.cuisine === cuisine : true) &&
+    //         (price ? restaurant.price === price : true) &&
+    //         (diet ? restaurant.diet === diet : true)
+    //     );
+    //     setResults(filteredData);
+    // };
 
     return (
         <div>
@@ -26,7 +26,7 @@ const Search = () => {
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
             />
-            <button onClick={handleSearch}>Search</button>
+            {/* <button onClick={handleSearch}>Search</button> */}
 
             <h3>Filter Options:</h3>
             <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>

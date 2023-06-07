@@ -7,9 +7,11 @@ import Restaurants from "./Restaurants";
 import Search from "./Search";
 import httpClient from "./httpClient";
 import UserPage from "./UserPage";
+import NotFound from "./NotFound"
 
 function App() {
     const [user, setUser] = useState("")
+    const [data, setUserData] = useState("")
 
     useEffect(() => {
         (async () => {
@@ -23,10 +25,31 @@ function App() {
         }) ()
     }, [])
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await httpClient.get(`//localhost:5555/users/${user.id}`)
+                setUserData(response.data)
+            }
+            catch (error) {
+                console.log("Not authenticated")
+            }
+        }) ()
+    }, [user])
+
+    function displayStars(num){
+        const rating = []
+        for (let i = 0; i < num; i++){
+            rating.push("⭐")
+        }
+        return rating.join("")
+    }
+
     return (
         <div>
             <NavBar
                 user = {user}
+                data = {data}
             />
             <Switch>
                 <Route path='/' exact component={Home} />
@@ -36,8 +59,11 @@ function App() {
                 <Route exact path="/Profile">
                     <UserPage
                         user = {user}
+                        displayStars = {displayStars}
+                        data = {data}
                     />
                 </Route>
+                <Route exact component={NotFound}/>
             </Switch>
         </div>
     );

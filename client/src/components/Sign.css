@@ -23,6 +23,7 @@
     display: grid;
     grid-template-columns: 1fr;
     z-index: 5;
+    box-sizing: border-box;
 }
 
 form {
@@ -109,8 +110,8 @@ form.sign-in-form {
 }
 .panels-container {
     position: absolute;
-    height: 70%;
-    width: 80%;
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }

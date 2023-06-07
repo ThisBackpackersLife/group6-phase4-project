@@ -1,35 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import './Restaurants.css';
-import { useState } from "react";
-
-export const restaurantData = [
-    { name: "Restaurant 1", image: "/path/to/image1", price: "$$$", cuisine: "Italian", diet: "Vegetarian" },
-    { name: "Restaurant 2", image: "/path/to/image2", price: "$$", cuisine: "Mexican", diet: "Vegan" },
-    { name: "Restaurant 3", image: "/path/to/image3", price: "$", cuisine: "Indian", diet: "Gluten-Free" },
-    // add more restaurant data here
-];
+import httpClient from "./httpClient";
 
 function Restaurants() {
+    const [restaurants, setRestaurants] = useState("")
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await httpClient.get(`//localhost:5555/restaurants`)
+                setRestaurants(response.data)
+            }
+            catch (error) {
+                console.log("Not authenticated")
+            }
+        }) ()
+    }, [])
+
     const history = useHistory();
 
-    return (
-        <div className="restaurants">
-            {restaurantData.map((restaurant, index) => (
-                <div 
-                    className="restaurant-card" 
-                    key={index}
-                    onClick={() => history.push(`/restaurant/${restaurant.name}`)}  
-                >
-                    <img src={restaurant.image} alt={restaurant.name} />
-                    <div className="restaurant-info">
-                        <h2>{restaurant.name}</h2>
-                        <p>{restaurant.price}</p>
+    if (restaurants){
+        return (
+            <div className="restaurants">
+                {restaurants.map((restaurant, index) => (
+                    <div 
+                        className="restaurant-card" 
+                        key={index}
+                        onClick={() => history.push(`/restaurant/${restaurant.id}`)}  
+                    >
+                        <img src={restaurant.image} alt={restaurant.name} />
+                        <div className="restaurant-info">
+                            <h2>{restaurant.name}</h2>
+                            <p>{restaurant.price}</p>
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
-    );
+                ))}
+            </div>
+        );
+    }
 }
 
 export default Restaurants;

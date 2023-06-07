@@ -28,7 +28,7 @@ function Sign() {
                 username,
                 password,
             })
-            window.location.href = "/"
+            window.location.href = "/profile"
         }
         catch (error) {
             if(error.response.status === 401){
@@ -43,7 +43,7 @@ function Sign() {
                 email,
                 password,
             })
-            window.location.href = "/"
+            window.location.href = "/profile"
         }
         catch (error) {
             if(error.response.status === 401){
@@ -115,9 +115,9 @@ function Sign() {
                                 />
                             </div>
                             <button
-                            type="button"
-                            className="btn"
-                            onClick={() => userSignUp()}
+                                type="button"
+                                className="btn"
+                                onClick={() => userSignUp()}
                             >
                                 Sign Up
                             </button>

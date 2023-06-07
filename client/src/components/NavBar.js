@@ -4,7 +4,10 @@ import "./App.css";
 import Logo from "../Images/logo.png";
 import UserIcon from "../Images/UserIcon.png";
 
-function NavBar({user}) {
+function NavBar({user, data}) {
+
+    console.log(user)
+
     return (
         <header>
             <nav className="nav">
@@ -30,11 +33,19 @@ function NavBar({user}) {
                             Restaurants
                         </Link>
                     </div>
-                    <div className="active user-icon-container">
-                        <Link to="/Sign" className="link">
-                            <img src={UserIcon} alt="No Logo Available"></img>
-                        </Link>
-                    </div>
+                    {user != "" ? (
+                        <div className="active user-icon-container">
+                            <Link to="/profile" className="link">
+                                <img src={data.avatar} alt="No Logo Available"></img>
+                            </Link>
+                        </div>
+                    ): (
+                        <div className="active user-icon-container">
+                            <Link to="/sign" className="link">
+                                <img src={UserIcon} alt="No Logo Available"></img>
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </nav>
         </header>
