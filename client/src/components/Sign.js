@@ -23,12 +23,32 @@ function Sign() {
     }
 
     const userLogIn = async () => {
-        const response = await httpClient.post("//localhost:5555/login", {
-            username,
-            password,
-        })
-        if (response.status == 200){
+        try{
+            const response = await httpClient.post("//localhost:5555/login", {
+                username,
+                password,
+            })
             window.location.href = "/"
+        }
+        catch (error) {
+            if(error.response.status === 401){
+                alert("Invalid Credentials")
+            }
+        }
+    }
+    const userSignUp = async () => {
+        try{
+            const response = await httpClient.post("//localhost:5555/signup", {
+                username,
+                email,
+                password,
+            })
+            window.location.href = "/"
+        }
+        catch (error) {
+            if(error.response.status === 401){
+                alert("Invalid Credentials")
+            }
         }
     }
 
@@ -94,11 +114,13 @@ function Sign() {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <input
-                            type="submit"
+                            <button
+                            type="button"
                             className="btn"
-                            value="Sign up"
-                            />
+                            onClick={() => userSignUp()}
+                            >
+                                Sign Up
+                            </button>
                         </form>
                     </div>
                 </div>

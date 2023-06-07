@@ -109,10 +109,8 @@ form.sign-in-form {
 }
 .panels-container {
     position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
+    height: 70%;
+    width: 80%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
@@ -178,6 +176,7 @@ form.sign-in-form {
 
 .right-panel .content {
     transform: translateX(800px);
+    padding-left: 29rem;
 }
 
 .container.sign-up-mode:before {
@@ -187,6 +186,7 @@ form.sign-in-form {
 
 .container.sign-up-mode .left-panel .content {
     transform: translateX(-800px);
+
 }
 
 .container.sign-up-mode .signin-signup {

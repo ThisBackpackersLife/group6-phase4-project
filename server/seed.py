@@ -44,7 +44,8 @@ if __name__ == '__main__':
             user = User(
                 username = fake.first_name(),
                 email = fake.email(),
-                _password_hash = randint(1000000,9999999)
+                avatar = "https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png",
+                _password_hash = randint(1000000,9999999),
             )
             users.append(user)
 
