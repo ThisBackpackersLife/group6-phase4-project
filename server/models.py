@@ -23,6 +23,13 @@ class User( db.Model, SerializerMixin ):
     reviews = db.relationship( 'Review', backref = 'user' )
     restaurants = association_proxy( 'reviews', 'restaurant' )
 
+    def user_info( self ):
+        return {
+            "username": self.username,
+            "email": self.email,
+            "id": self.id
+        }
+
     @hybrid_property
     def password_hash( self ):
         raise Exception( "Password hashes may not be viewed." )
