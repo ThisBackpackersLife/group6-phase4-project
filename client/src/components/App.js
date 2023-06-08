@@ -7,11 +7,26 @@ import Restaurants from "./Restaurants";
 import Search from "./Search";
 import httpClient from "./httpClient";
 import UserPage from "./UserPage";
-import NotFound from "./NotFound"
+import NotFound from "./NotFound";
+import RestaurantDetails from "./RestaurantDetails"
 
 function App() {
     const [user, setUser] = useState("")
     const [data, setUserData] = useState("")
+    const [restaurants, setRestaurants] = useState("")
+    const [reviews, setReviews] = useState("")
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await httpClient.get(`//localhost:5555/restaurants`)
+                setRestaurants(response.data)
+            }
+            catch (error) {
+                console.log("Not authenticated")
+            }
+        }) ()
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -37,6 +52,16 @@ function App() {
         }) ()
     }, [user])
 
+    const sortReview = async () => {
+        const response = await httpClient.get(`//localhost:5555/sorted/${user.id}`)
+        setUserData(response.data)
+    }
+
+    const sortReviewByDate = async () => {
+        const response = await httpClient.get(`//localhost:5555/sorted_by_date/${user.id}`)
+        setUserData(response.data)
+    }
+
     function displayStars(num){
         const rating = []
         for (let i = 0; i < num; i++){
@@ -47,32 +72,62 @@ function App() {
 
     const deleteReview = async (review) => {
         await httpClient.delete(`//localhost:5555/review/${review}`)
-        window.location.reload()
+        window.location.reload(false)
     }
 
-    return (
-        <div>
-            <NavBar
-                user = {user}
-                data = {data}
-            />
-            <Switch>
-                <Route path='/' exact component={Home} />
-                <Route path='/Sign' exact component={Sign} />
-                <Route path='/Restaurants' exact component={Restaurants} />
-                <Route path='/Search' exact component={Search} />
-                <Route exact path="/Profile">
-                    <UserPage
-                        user = {user}
-                        displayStars = {displayStars}
-                        data = {data}
-                        deleteReview = {deleteReview}
-                    />
-                </Route>
-                <Route exact component={NotFound}/>
-            </Switch>
-        </div>
-    );
+    const getRestaurant = async (id) => {
+        const response = await httpClient.get(`//localhost:5555/restaurant/review/${id}`)
+        setReviews(response.data)
+    }
+
+    if(restaurants){
+        return (
+            <div>
+                <NavBar
+                    user = {user}
+                    data = {data}
+                />
+                <Switch>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/Sign' exact component={Sign} />
+                    <Route path='/Restaurants'>
+                        <Restaurants
+                            restaurants={restaurants}
+                        />
+                    </Route>
+                    <Route path='/Search' exact component={Search} />
+                    <Route exact path="/Profile">
+                        <UserPage
+                            user = {user}
+                            displayStars = {displayStars}
+                            data = {data}
+                            deleteReview = {deleteReview}
+                            sortReview = {sortReview}
+                            sortReviewByDate = {sortReviewByDate}
+                        />
+                    </Route>
+                    {
+                        restaurants.map((restaurant, index) => {
+                            return (
+                                <Route key={index} exact path={`/restaurant/${restaurant.id}`}>
+                                    <RestaurantDetails
+                                        key = {index}
+                                        restaurant = {restaurant}
+                                        deleteReview = {deleteReview}
+                                        displayStars = {displayStars}
+                                        getRestaurant = {getRestaurant}
+                                        reviews = {reviews}
+                                        user = {user}
+                                    />
+                                </Route>
+                            )
+                        })
+                    }
+                    <Route exact component={NotFound}/>
+                </Switch>
+            </div>
+        );
+    }
 }
 
 export default App;

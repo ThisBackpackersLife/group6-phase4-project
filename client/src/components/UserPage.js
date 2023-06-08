@@ -4,7 +4,7 @@ import "./profile.css";
 import ReviewBox from "./ReviewBox";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function UserPage({user, displayStars, data, deleteReview}) {
+function UserPage({user, displayStars, data, deleteReview, sortReview, sortReviewByDate}) {
 
     const [change, setChange] = useState(false)
     const [avatar, setAvatar] = useState("")
@@ -37,11 +37,7 @@ function UserPage({user, displayStars, data, deleteReview}) {
         return (
             <div className="user-container">
                 <div className="left-div">
-                    {data.avatar != null ? (
-                        <img className="user-image" src={data.avatar}></img>
-                    ):(
-                        <img className="user-image" src="https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png"></img>
-                    )}
+                    <img className="user-image" src={data.avatar}></img>
                     <br></br>
                     <div className="user-info">
                         <h2>{data.username}</h2>
@@ -83,21 +79,22 @@ function UserPage({user, displayStars, data, deleteReview}) {
                 <div className="right-div">
                     <div className="review-div">
                             <label>Sort by: </label>
-                            <button className="sort-btn"> Date </button>
-                            <button className="sort-btn">Rating</button>
+                            <button onClick={() => sortReviewByDate()} className="sort-btn"> Date </button>
+                            <button onClick={() => sortReview()} className="sort-btn">Rating</button>
                         </div>
                         {
                             data.reviews.map((review, index) => {
                                 return (
                                     <div className="review-div">
-                                        <div>
+                                        <Link  to={`/restaurant/${review.restaurant_id}`} >
                                             <ReviewBox
                                                 key={index}
                                                 review = {data.reviews[index]}
                                                 displayStars = {displayStars}
-                                                deleteReview = {deleteReview}
                                             />
-                                        </div>
+                                        </Link>
+                                        <br></br>
+                                        <button onClick={() => deleteReview(review.id)} className="sort-btn">Delete</button>
                                     </div>
                                 )
                             })

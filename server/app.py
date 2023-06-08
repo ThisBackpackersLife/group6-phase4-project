@@ -97,7 +97,7 @@ def users():
 @app.route( '/users/<int:id>', methods=[ "GET", "DELETE", "PATCH" ] )
 def user( id ):
     user = User.query.filter( User.id == id ).first()
-    user_review = Review.query.filter( Review.user_id == id ).order_by(Review.created_at.desc()).all()
+    user_review = Review.query.filter( Review.user_id == id ).all()
     if user:
         if request.method == "GET":
             user_dict =  user_to_dict( user)
@@ -124,9 +124,19 @@ def user( id ):
 
 @app.route("/sorted/<int:id>", methods=["GET"])
 def sort_reviews_by_rating(id):
+    user = User.query.filter( User.id == id ).first()
     user_review = Review.query.filter( Review.user_id == id ).order_by(Review.rating.desc()).all()
-    reviews = [ review_to_dict( review ) for review in user_review ]
-    return make_response( jsonify( reviews ), 200 )
+    user_dict =  user_to_dict( user)
+    user_dict["reviews"] = [review_to_dict(r) for r in user_review]
+    return make_response( jsonify( user_dict ), 200 )
+
+@app.route("/sorted_by_date/<int:id>", methods=["GET"])
+def sort_reviews_by_date(id):
+    user = User.query.filter( User.id == id ).first()
+    user_review = Review.query.filter( Review.user_id == id ).order_by(Review.created_at.desc()).all()
+    user_dict =  user_to_dict( user)
+    user_dict["reviews"] = [review_to_dict(r) for r in user_review]
+    return make_response( jsonify( user_dict ), 200 )
 
 @app.route( '/restaurants', methods=[ "GET", "POST" ] )
 def restaurants():
@@ -151,7 +161,9 @@ def restaurant( id ):
 
     if restaurant:
         if request.method == "GET":
-            return make_response( jsonify( restaurant_to_dict( restaurant )), 200 )
+            restaurant_dict = restaurant_to_dict(restaurant)
+            restaurant_dict["reviews"] = [review_to_dict(r) for r in restaurant.reviews]
+            return make_response( jsonify(restaurant_dict), 200 )
         
         elif request.method == "PATCH":
             data = request.get_json()
@@ -214,6 +226,12 @@ def review( id ):
             return make_response("", 204)
     else:
         return make_response( "Review not found.", 404 )
+    
+@app.route("/restaurant/review/<int:id>", methods=["GET"])
+def restaurant_review(id):
+    reviews = Review.query.filter( Review.restaurant_id == id ).order_by(Review.created_at.asc()).all()
+    review_dict = [ review_to_dict( review ) for review in reviews ]
+    return make_response(jsonify(review_dict), 200)
 
 def user_to_dict( user ):
     return {

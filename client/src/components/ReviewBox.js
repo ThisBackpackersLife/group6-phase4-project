@@ -1,7 +1,7 @@
 import React from "react";
 import "./profile.css";
 
-function ReviewBox({review, displayStars, deleteReview}) {
+function ReviewBox({review, displayStars}) {
     if (review != undefined) {
         return (
             <div>
@@ -16,7 +16,6 @@ function ReviewBox({review, displayStars, deleteReview}) {
                         <p>{review.body}</p>
                     </div>
                 </div>
-                <button onClick={() => deleteReview(review.id)} className="delete-btn">Delete</button>
             </div>
         );
     }

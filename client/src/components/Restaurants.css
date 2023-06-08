@@ -29,3 +29,60 @@
 .restaurant-info {
     margin-left: 1rem;
 }
+
+.restaurant-image{
+    width: 700px;
+    height: 350px;
+	box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.res-details{
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.res-name {
+    box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+	margin-bottom: 30px;
+	margin-top: 25px;
+	padding: 5px;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-form-div {
+    box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+    padding: 20px;
+}
+
+.area{
+    box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+    padding: 20px;
+    border: none;
+}
+
+.submit-btn {
+    box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+    padding: 20px;
+    background-color: transparent;
+    border: none;
+}
+
+.submit-btn:hover{
+    transform: translateY(-10%);
+}
+
+
