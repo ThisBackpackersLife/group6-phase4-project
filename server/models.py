@@ -48,15 +48,19 @@ class User( db.Model, SerializerMixin ):
     
     @validates( 'username' )
     def validate_username( self, key, username ):
-        pass
+        user = User.query.filter( User.username.like( f'%{ username }%' ) ).first()
+        if isinstance( username, str ) and username and user == None:
+            return username
+        else:
+            abort( 422, "Username must be a unique string." )
 
     @validates( 'email' )
     def validate_email( self, key, email ):
-        pass
-
-    @validates( '_password_hash' )
-    def validate__password_hash( self, key, _password_hash ):
-        pass
+        user = User.query.filter( User.email.like( f'%{ email }%' ) ).first()
+        if isinstance( email, str ) and email and user == None:
+            return email
+        else:
+            abort( 422, "Email must be a unique string." ) 
     
     def __repr__( self ):
         return f'<User { self.username }, ID: { self.id }'
@@ -78,15 +82,27 @@ class Restaurant( db.Model, SerializerMixin ):
 
     @validates( 'name' )
     def validate_name( self, key, name ):
-        pass
+        restaurant = Restaurant.query.filter( Restaurant.name.like( f'%{ name }%' ) ).first()
+        if isinstance( name, str ) and len( name ) <= 50 and restaurant == None:
+            return name
+        else:
+            abort( 422, "Name must be a unique string less than 50 characters." )
 
     @validates( 'image' )
     def validate_image( self, key, image ):
-        pass
+        restaurant = Restaurant.query.filter( Restaurant.image.like( f'%{ image }%' ) ).first()
+        if isinstance( image, str ) and image and restaurant == None:
+            return image
+        else:
+            abort( 422, "Image already exists with a different restaurant." )
 
     @validates( 'address' )
     def validate_address( self, key, address ):
-        pass
+        restaurant = Restaurant.query.filter( Restaurant.address.like( f'%{ address }%' ) ).first()
+        if isinstance( address, str ) and address and restaurant == None:
+            return address
+        else: 
+            abort( 422, "Address must be a unique string." )
 
     def __repr__( self ):
         return f'<Restaurant ID: { self.id }, name:{ self.name }'
