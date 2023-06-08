@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { restaurants } from "./Restaurants.js";
+import React, { useState, useEffect } from "react";
+import httpClient from "./httpClient";
+import './Search.css';
 
 const Search = () => {
     const [keyword, setKeyword] = useState('');
@@ -7,48 +8,63 @@ const Search = () => {
     const [price, setPrice] = useState('');
     const [diet, setDiet] = useState('');
     const [results, setResults] = useState([]);
+    const [restaurants, setRestaurants] = useState([]); // New state for restaurants
 
-    // const handleSearch = () => {
-    //     const filteredData = restaurants.filter(restaurant =>
-    //         restaurant.name.toLowerCase().includes(keyword.toLowerCase()) &&
-    //         (cuisine ? restaurant.cuisine === cuisine : true) &&
-    //         (price ? restaurant.price === price : true) &&
-    //         (diet ? restaurant.diet === diet : true)
-    //     );
-    //     setResults(filteredData);
-    // };
+    // Fetch restaurants data when component mounts
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await httpClient.get(`//localhost:5555/restaurants`)
+                setRestaurants(response.data)
+            }
+            catch (error) {
+                console.log("Error loading restaurants")
+            }
+        })()
+    }, [])
+
+    const handleSearch = () => {
+        const filteredData = restaurants.filter(restaurant =>
+            restaurant.name.toLowerCase().includes(keyword.toLowerCase()) &&
+            (cuisine ? restaurant.cuisine === cuisine : true) &&
+            (price ? restaurant.price === price : true) &&
+            (diet ? restaurant.diet === diet : true)
+        );
+        setResults(filteredData);
+    };
 
     return (
-        <div>
+        <div className="search-container">
             <input 
+                className="search-input"
                 type="text" 
                 placeholder="Search by keyword" 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
             />
-            {/* <button onClick={handleSearch}>Search</button> */}
+            <button onClick={handleSearch}>Search</button>
 
             <h3>Filter Options:</h3>
-            <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
-                <option value="">--Select Cuisine--</option>
-                <option value="Italian">Italian</option>
-                <option value="Mexican">Mexican</option>
-                <option value="Indian">Indian</option>
-                {/* Add more cuisines as needed */}
-            </select>
-            <select value={price} onChange={(e) => setPrice(e.target.value)}>
-                <option value="">--Select Price Range--</option>
-                <option value="cheap">Cheap</option>
-                <option value="moderate">Moderate</option>
-                <option value="expensive">Expensive</option>
-            </select>
-            <select value={diet} onChange={(e) => setDiet(e.target.value)}>
-                <option value="">--Select Dietary Restrictions--</option>
-                <option value="vegan">Vegan</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="gluten-free">Gluten-Free</option>
-                {/* Add more diets as needed */}
-            </select>
+            <div className="filter-container">
+                <select className="filter" value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
+                    <option value="">--Select Cuisine--</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Indian">Indian</option>
+                </select>
+                <select className="filter" value={price} onChange={(e) => setPrice(e.target.value)}>
+                    <option value="">--Select Price Range--</option>
+                    <option value="cheap">Cheap</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="expensive">Expensive</option>
+                </select>
+                <select className="filter" value={diet} onChange={(e) => setDiet(e.target.value)}>
+                    <option value="">--Select Dietary Restrictions--</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="gluten-free">Gluten-Free</option>
+                </select>
+            </div>
 
             {/* Display search results */}
             {results.map((restaurant, index) => (
