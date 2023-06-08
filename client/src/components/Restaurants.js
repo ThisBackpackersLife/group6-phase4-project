@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import './Restaurants.css';
+import httpClient from "./httpClient";
 
-function Restaurants({restaurants}) {
+function Restaurants() {
+    const [restaurants, setRestaurants] = useState("")
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await httpClient.get(`//localhost:5555/restaurants`)
+                setRestaurants(response.data)
+            }
+            catch (error) {
+                console.log("Not authenticated")
+            }
+        }) ()
+    }, [])
 
     const history = useHistory();
 

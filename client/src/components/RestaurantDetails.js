@@ -54,7 +54,7 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
     // Save review after editing
     const saveEditedReview = async () => {
         try {
-            await httpClient.patch(`//localhost:5555/reviews/${editReviewId}`, {
+            await httpClient.patch(`//localhost:5555/review/${editReviewId}`, {
                 body,
                 rating,
                 image
