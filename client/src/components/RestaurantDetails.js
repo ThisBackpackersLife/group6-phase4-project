@@ -10,6 +10,10 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
     const [body, setBody] = useState("")
     const [rating, setRating] = useState(1)
 
+    // State for editing review
+    const [editMode, setEditMode] = useState(false);
+    const [editReviewId, setEditReviewId] = useState(null);
+
     function handleClick(){
         setPost(!post)
     }
@@ -34,6 +38,37 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
         }
     }
 
+    // Edit review
+    const editReview = async (reviewId) => {
+        setEditMode(true);
+        setEditReviewId(reviewId);
+        const reviewToEdit = reviews.find(review => review.id === reviewId);
+        if (reviewToEdit) {
+            setBody(reviewToEdit.body);
+            setRating(reviewToEdit.rating);
+            setImage(reviewToEdit.image);
+        }
+    };
+    
+
+    // Save review after editing
+    const saveEditedReview = async () => {
+        try {
+            await httpClient.patch(`//localhost:5555/reviews/${editReviewId}`, {
+                body,
+                rating,
+                image
+            });
+            // Close edit mode and refresh reviews after successful PATCH request
+            setEditMode(false);
+            setEditReviewId(null);
+            getRestaurant(restaurant.id);  
+        }
+        catch (error) {
+            console.error("Error saving edited review: ", error);
+        }
+    };
+
     return (
         <div className="res-details">
             <div className="res-img-div">
@@ -52,11 +87,12 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
                     reviews = {reviews} 
                     displayStars={displayStars}
                     deleteReview={deleteReview}
+                    editReview={editReview}  
                 />
             )}
             <br></br>
             <div className="review-form">
-                {post !== false ? (
+                {post !== false || editMode ? (
                     <div className="review-form-div">
                         <br></br>
                         <br></br>
@@ -95,10 +131,14 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
                             type="button"
                             onClick={()=>{
                                 handleClick()
-                                changeAvatar()
+                                if (editMode) {
+                                    saveEditedReview()
+                                } else {
+                                    changeAvatar()
+                                }
                             }}
                         >
-                            Submit Review
+                            {editMode ? "Save Changes" : "Submit Review"}
                         </button>
                     </div>
                 ):(
