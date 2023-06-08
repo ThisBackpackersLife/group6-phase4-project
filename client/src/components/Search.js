@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { restaurantData } from "./Restaurants";
+import './Search.css';
 
 const Search = () => {
     const [keyword, setKeyword] = useState('');
@@ -19,48 +20,52 @@ const Search = () => {
     };
 
     return (
-        <div>
+        <div className="search-page">
             <input 
                 type="text" 
+                className="search-input"
                 placeholder="Search by keyword" 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
             />
-            <button onClick={handleSearch}>Search</button>
+            <button className="search-button" onClick={handleSearch}>Search</button>
 
             <h3>Filter Options:</h3>
-            <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
+            <select className="filter-select" value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
                 <option value="">--Select Cuisine--</option>
                 <option value="Italian">Italian</option>
                 <option value="Mexican">Mexican</option>
                 <option value="Indian">Indian</option>
                 {/* Add more cuisines as needed */}
             </select>
-            <select value={price} onChange={(e) => setPrice(e.target.value)}>
+            <select className="filter-select" value={price} onChange={(e) => setPrice(e.target.value)}>
                 <option value="">--Select Price Range--</option>
-                <option value="cheap">Cheap</option>
-                <option value="moderate">Moderate</option>
-                <option value="expensive">Expensive</option>
+                <option value="$">Cheap</option>
+                <option value="$$">Moderate</option>
+                <option value="$$$">Expensive</option>
             </select>
-            <select value={diet} onChange={(e) => setDiet(e.target.value)}>
+            <select className="filter-select" value={diet} onChange={(e) => setDiet(e.target.value)}>
                 <option value="">--Select Dietary Restrictions--</option>
-                <option value="vegan">Vegan</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="gluten-free">Gluten-Free</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Gluten-Free">Gluten-Free</option>
                 {/* Add more diets as needed */}
             </select>
 
-            {/* Display search results */}
-            {results.map((restaurant, index) => (
-                <div key={index}>
-                    <h2>{restaurant.name}</h2>
-                    <p>{restaurant.price}</p>
-                    <p>{restaurant.cuisine}</p>
-                    <p>{restaurant.diet}</p>
-                </div>
-            ))}
+            <div className="search-results">
+                {/* Display search results */}
+                {results.map((restaurant, index) => (
+                    <div className="restaurant-card" key={index}>
+                        <h2>{restaurant.name}</h2>
+                        <p>{restaurant.price}</p>
+                        <p>{restaurant.cuisine}</p>
+                        <p>{restaurant.diet}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
 export default Search;
+
