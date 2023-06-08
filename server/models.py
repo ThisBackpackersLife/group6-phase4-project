@@ -16,7 +16,7 @@ class User( db.Model, SerializerMixin ):
     username = db.Column( db.String )
     email = db.Column( db.String, unique = True )
     _password_hash = db.Column( db.String( 30 ) )
-    avatar = db.Column( db.String )
+    avatar = db.Column( db.String, default="https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png" )
     created_at = db.Column( db.DateTime, server_default=db.func.now() )
     updated_at = db.Column( db.DateTime, onupdate=db.func.now() )
 

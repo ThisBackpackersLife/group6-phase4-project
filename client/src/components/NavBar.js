@@ -6,8 +6,6 @@ import UserIcon from "../Images/UserIcon.png";
 
 function NavBar({user, data}) {
 
-    console.log(user)
-
     return (
         <header>
             <nav className="nav">

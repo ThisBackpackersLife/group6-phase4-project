@@ -4,7 +4,7 @@ import "./profile.css";
 import ReviewBox from "./ReviewBox";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function UserPage({user, displayStars, data}) {
+function UserPage({user, displayStars, data, deleteReview}) {
 
     const [change, setChange] = useState(false)
     const [avatar, setAvatar] = useState("")
@@ -28,6 +28,11 @@ function UserPage({user, displayStars, data}) {
         }
     }
 
+    const deleteUser = async () => {
+        await httpClient.delete(`//localhost:5555/users/${user.id}`)
+        window.location.href = "/"
+    }
+
     if(data){
         return (
             <div className="user-container">
@@ -35,11 +40,13 @@ function UserPage({user, displayStars, data}) {
                     {data.avatar != null ? (
                         <img className="user-image" src={data.avatar}></img>
                     ):(
-                        <img className="avatar" src="https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png"></img>
+                        <img className="user-image" src="https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png"></img>
                     )}
                     <br></br>
-                    <h2>{data.username}</h2>
-                    <h3>{data.email}</h3>
+                    <div className="user-info">
+                        <h2>{data.username}</h2>
+                        <h3>{data.email}</h3>
+                    </div>
                     {change != false ? (
                         <div className="btn">
                             <input 
@@ -68,24 +75,34 @@ function UserPage({user, displayStars, data}) {
                         <button onClick={() => logOutUser()}>Log Out</button>
                     </div>
                     <br></br>
+                    <div className="btn">
+                        <button onClick={() => deleteUser()}>Delete User</button>
+                    </div>
+                    <br></br>
                 </div>
                 <div className="right-div">
-                    {
-                        data.reviews.map((review, index) => {
-                            return (
-                                <div className="review-div">
-                                    <Link to={`/restaurants/${review.restaurant_id}`} className="link">
-                                        <ReviewBox
-                                            key={index}
-                                            review = {data.reviews[index]}
-                                            displayStars = {displayStars}
-                                        />
-                                    </Link>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                    <div className="review-div">
+                            <label>Sort by: </label>
+                            <button className="sort-btn"> Date </button>
+                            <button className="sort-btn">Rating</button>
+                        </div>
+                        {
+                            data.reviews.map((review, index) => {
+                                return (
+                                    <div className="review-div">
+                                        <div>
+                                            <ReviewBox
+                                                key={index}
+                                                review = {data.reviews[index]}
+                                                displayStars = {displayStars}
+                                                deleteReview = {deleteReview}
+                                            />
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
             </div>
         );
     }

@@ -8,15 +8,15 @@ function Sign() {
     const [username, setUsername] = useState("")
 
     function Sign(){
-        const sign_in_btn = document.querySelector("#sign-in-btn");
-        const sign_up_btn = document.querySelector("#sign-up-btn");
+        const sign_in_button = document.querySelector("#sign-in-button");
+        const sign_up_button = document.querySelector("#sign-up-button");
         const container = document.querySelector(".container");
     
-        if(sign_up_btn){
-            sign_up_btn.addEventListener("click", () => {
+        if(sign_up_button){
+            sign_up_button.addEventListener("click", () => {
                 container.classList.add("sign-up-mode");
                 });
-            sign_in_btn.addEventListener("click", () => {
+            sign_in_button.addEventListener("click", () => {
                 container.classList.remove("sign-up-mode");
                 });
         }
@@ -80,7 +80,7 @@ function Sign() {
                             <button
                             type="button"
                             onClick={() => userLogIn()}
-                            className="btn solid"
+                            className="button solid"
                             >
                                 Log In
                             </button>
@@ -116,7 +116,7 @@ function Sign() {
                             </div>
                             <button
                                 type="button"
-                                className="btn"
+                                className="button"
                                 onClick={() => userSignUp()}
                             >
                                 Sign Up
@@ -129,8 +129,8 @@ function Sign() {
                     <div className="content">
                         <h3>New here ?</h3>
                         <button
-                        className="btn transparent"
-                        id="sign-up-btn"
+                        className="button transparent"
+                        id="sign-up-button"
                         onMouseDown={Sign}
                         >
                         Sign up
@@ -141,8 +141,8 @@ function Sign() {
                         <div className="content">
                             <h3>Already a User ?</h3>
                             <button
-                            className="btn transparent"
-                            id="sign-in-btn"
+                            className="button transparent"
+                            id="sign-in-button"
                             onMouseDown={Sign}
                             >
                             Sign in

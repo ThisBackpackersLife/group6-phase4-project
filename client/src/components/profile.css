@@ -1,7 +1,3 @@
-.avatar {
-    width: 200px;
-    height: 200px;
-}
 .review-image {
     width: 150px;
     height:150px;
@@ -16,7 +12,13 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     margin-left: 40px;
 }
-
+.user-info{
+	box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
+	margin-bottom: 30px;
+	margin-top: 25px;
+	padding: 5px;
+}
 .review {
     display: flex;
 }
@@ -26,6 +28,29 @@
 }
 .rating-star {
     font-size: medium;
+}
+
+.no-riv{
+    height: 100%;
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	text-decoration-color: #c52f82;
+	text-decoration: dotted;
+}
+
+.sort-btn{
+	margin: 10px;
+	padding: 4px;
+	border-radius: 5px;
+	background-color: transparent;
+	border-style: none;
+}
+.sort-btn:hover{
+	opacity: 1;
+    transform: translateY(-3%);
+    box-shadow: 0 10px 20px #c52f82;
 }
 
 .user-container {
@@ -50,6 +75,7 @@
     text-align: center;
     display: block;
     gap: 20px;
+	box-shadow: 0 10px 20px #c52f82;
 }
 
 .right-div {
@@ -59,12 +85,14 @@
 .user-image {
     width: 250px;
     height: 250px;
+	box-shadow: 0 10px 20px #c52f82;
+	border-radius: 10px;
 }
 
 .review-div:hover {
     opacity: 1;
     transform: translateY(-3%);
-    box-shadow: 0 10px 20px maroon;
+    box-shadow: 0 10px 20px #c52f82;
 }
 
 .btn {
@@ -96,7 +124,7 @@
 	letter-spacing: 1px;
 	text-decoration: none;
 	overflow: hidden;
-	color: #fff;
+	color: black;
 	font-weight: 400px;
 	z-index: 1;
 	transition: 0.5s;
@@ -159,9 +187,9 @@
 	width: 80%;
 	border-radius: 30px;
 }
-.btn:nth-child(1)::before, /*chnage 1*/
+.btn:nth-child(1)::before,
 .btn:nth-child(1)::after {
-	background: maroon;
-	box-shadow: 0 0 5px maroon, 0 0 15px maroon, 0 0 30px maroon,
-		0 0 60px maroon;
+	background: #c52f82;
+	box-shadow: 0 0 5px #c52f82, 0 0 15px #c52f82, 0 0 30px #c52f82,
+		0 0 60px #c52f82;
 }

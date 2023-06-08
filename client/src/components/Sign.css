@@ -90,7 +90,7 @@ form.sign-in-form {
     font-weight: 500;
 }
 
-.btn {
+.button {
     width: 150px;
     background-color: maroon;
     border: none;
@@ -105,7 +105,7 @@ form.sign-in-form {
     transition: 0.5s;
 }
 
-.btn:hover {
+.button:hover {
     background-color: #e03333;
 }
 .panels-container {
@@ -165,7 +165,7 @@ form.sign-in-form {
     padding: 0.7rem 0;
 }
 
-.btn.transparent {
+.button.transparent {
     margin: 0;
     background: none;
     border: 2px solid rgb(248, 241, 241);
@@ -266,7 +266,7 @@ form.sign-in-form {
         padding: 0.5rem 0;
     }
 
-    .btn.transparent {
+    .button.transparent {
         width: 110px;
         height: 35px;
         font-size: 0.7rem;

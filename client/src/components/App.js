@@ -45,6 +45,11 @@ function App() {
         return rating.join("")
     }
 
+    const deleteReview = async (review) => {
+        await httpClient.delete(`//localhost:5555/review/${review}`)
+        window.location.reload()
+    }
+
     return (
         <div>
             <NavBar
@@ -61,6 +66,7 @@ function App() {
                         user = {user}
                         displayStars = {displayStars}
                         data = {data}
+                        deleteReview = {deleteReview}
                     />
                 </Route>
                 <Route exact component={NotFound}/>

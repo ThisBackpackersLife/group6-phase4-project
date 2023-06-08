@@ -97,18 +97,19 @@ def users():
 @app.route( '/users/<int:id>', methods=[ "GET", "DELETE", "PATCH" ] )
 def user( id ):
     user = User.query.filter( User.id == id ).first()
+    user_review = Review.query.filter( Review.user_id == id ).order_by(Review.created_at.desc()).all()
     if user:
         if request.method == "GET":
             user_dict =  user_to_dict( user)
-            user_dict["reviews"] = [review_to_dict(r) for r in user.reviews]
+            user_dict["reviews"] = [review_to_dict(r) for r in user_review]
             return make_response( jsonify( user_dict ), 200 )
         
         elif request.method == "DELETE":
             Review.query.filter_by( user_id = id ).delete()
             db.session.delete( user )
             db.session.commit()
+            return make_response("", 204)
 
-            return make_response( '', 404 )
         elif request.method == "PATCH":
             user_data = request.get_json()
             for attr in user_data:
@@ -120,6 +121,12 @@ def user( id ):
             return make_response( jsonify( user_dict ), 200 )
     else:
         return make_response( "User not found.", 404 )
+
+@app.route("/sorted/<int:id>", methods=["GET"])
+def sort_reviews_by_rating(id):
+    user_review = Review.query.filter( Review.user_id == id ).order_by(Review.rating.desc()).all()
+    reviews = [ review_to_dict( review ) for review in user_review ]
+    return make_response( jsonify( reviews ), 200 )
 
 @app.route( '/restaurants', methods=[ "GET", "POST" ] )
 def restaurants():
@@ -164,7 +171,7 @@ def restaurant( id ):
     else:
         return make_response( "Restaurant not found.", 404 )
 
-@app.route( '/reviews', methods=[ "GET", "POST" ] )
+@app.route( '/reviews', methods=[ "GET", "POST", "DELETE" ] )
 def reviews():
     if request.method == "GET":
         reviews = [ review_to_dict( review ) for review in Review.query.all() ]
@@ -204,7 +211,7 @@ def review( id ):
         elif request.method == "DELETE":
             db.session.delete( review )
             db.session.commit()
-            return make_response( '', 404 )
+            return make_response("", 204)
     else:
         return make_response( "Review not found.", 404 )
 
