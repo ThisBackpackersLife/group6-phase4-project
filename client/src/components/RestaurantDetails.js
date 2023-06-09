@@ -30,9 +30,7 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
                 user_id,
                 restaurant_id,
             })
-            setEditMode(false);
-            setEditReviewId(null);
-            getRestaurant(restaurant.id);
+            window.location.reload(false)
         }
         catch (error) {
             alert("Invalid Action")
