@@ -44,26 +44,30 @@ function UserPage({user, displayStars, data, deleteReview, sortReview, sortRevie
                         <h3>{data.email}</h3>
                     </div>
                     {change !== false ? (
-                        <div className="btn">
+                        <div>
                             <input 
                                 type="text" 
                                 placeholder="Insert Image Url" 
                                 value={avatar}
                                 onChange={(e) => setAvatar(e.target.value)}
                             />
-                            <button
-                                type="button"
-                                onClick={()=>{
-                                    setChange(false)
-                                    changeAvatar()
-                                }}
-                            >
-                                Change Avatar
-                            </button>
+                            <br></br>
+                            <br></br>
+                            <div className="btn">
+                                <button
+                                    type="button"
+                                    onClick={()=>{
+                                        setChange(!change)
+                                        changeAvatar()
+                                    }}
+                                >
+                                    Change Avatar
+                                </button>
+                            </div>
                         </div>
                     ): (
                         <div className="btn">
-                            <button onClick={() => setChange(true)}>Change Avatar</button>
+                            <button onClick={() => setChange(!change)}>Change Avatar</button>
                         </div>
                     )}
                     <br></br>
