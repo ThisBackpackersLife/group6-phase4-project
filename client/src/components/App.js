@@ -16,12 +16,15 @@ function App() {
     const [restaurants, setRestaurants] = useState("")
     const [reviews, setReviews] = useState("")
     const [theme, setTheme] = useState('light')
+    const [isDarkMode, setDarkMode] = useState(true)
 
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark');
+            setDarkMode(true)
         } else {
             setTheme('light');
+            setDarkMode(false)
         }
     };
 
@@ -101,6 +104,7 @@ function App() {
                     user = {user}
                     data = {data}
                     toggleTheme = {toggleTheme}
+                    isDarkMode = {isDarkMode}
                 />
                 <Switch>
                     <Route path='/' exact component={Home} />
