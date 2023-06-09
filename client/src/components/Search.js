@@ -57,6 +57,8 @@ const Search = () => {
           <option value="Italian">Italian</option>
           <option value="Mexican">Mexican</option>
           <option value="Indian">Indian</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Chinese">Chinese</option>
         </select>
         <select
           className="filter"
