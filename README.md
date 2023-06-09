@@ -1,21 +1,42 @@
-## Culinary Critic
-Culinary Critic is a web application that allows users to discover and review restaurants. Users can search for restaurants based on various criteria, such as cuisine, price range, and dietary restrictions. They can also rate and write reviews for their favorite restaurants, as well as share their experiences with other users.
+# Culinary Critic
 
-# Features
-1. Search: Users can search for restaurants by entering a keyword and applying filters for cuisine, price range, and dietary restrictions. The search function fetches restaurant information directly from the back-end and brings it into the search query, allowing users to seamlessly transition between the search page and the restaurant cards.
+Culinary Critic is a web application that allows users to discover and review restaurants. Users can search for restaurants based on various criteria such as keyword, cuisine, price range, and dietary restrictions. They can also rate and review their favorite places.
 
-2. Restaurant Listings: The app displays a list of restaurants based on the search results or all available restaurants. Each restaurant card shows the restaurant's image, name, and price.
-3. Restaurant Details: Users can click on a restaurant card to view more details about the restaurant, including its image, name, price, cuisine, and dietary restrictions.
-4. User Registration and Login: Users can register an account and log in to access additional features, such as writing reviews and interacting with their profile.
-5. User Profile: Registered users have a profile page where they can view their avatar, manage their reviews, and sort reviews based on rating or date.
-6. Review Management: Users can write, edit, and delete their own reviews for restaurants.
-7. Responsive Design: The app is responsive and optimized for various screen sizes, allowing users to have a seamless experience across devices.
+## Functionality
 
-# Technologies Used
-React: JavaScript library for building user interfaces.
-React Router: Declarative routing for React applications.
-Axios: Promise-based HTTP client for making API requests.
-CSS: Styling and layout of the application.
-Node.js: JavaScript runtime for server-side development.
-Express.js: Web application framework for Node.js.
-MongoDB: NoSQL database for storing restaurant and user data.
+### Routes
+
+- `App.js`: The main component that handles routing and renders different components based on the current route. It sets up the navigation bar and defines routes for the home page, sign-in page, restaurants page, search page, user profile page, and restaurant details page.
+- `NavBar.js`: The navigation bar component that displays the logo and links to different pages. It also includes conditional rendering based on user authentication status, displaying the user's avatar or a default user icon.
+- `Home.js`: The home page component that showcases the main features of the application - discovering new restaurants, rating and reviewing them, and sharing experiences.
+- `Sign.js`: The sign-in page component that allows users to authenticate and log in to their accounts. It handles user authentication and redirects to the user profile page upon successful login.
+- `Restaurants.js`: The restaurants page component that displays a collection of restaurant cards. Each card represents a restaurant and includes an image, name, and price range. Users can click on a card to view the details of a specific restaurant.
+- `Search.js`: The search page component that provides a search form with filters for keyword, cuisine, price range, and dietary restrictions. Users can input their preferences and click the search button to get a list of matching restaurants.
+- `UserPage.js`: The user profile page component that shows the user's avatar, their rated and reviewed restaurants, and options to sort reviews by rating or date. It also provides functionality to delete reviews.
+- `RestaurantDetails.js`: The restaurant details page component that displays detailed information about a specific restaurant, including its image, name, and user reviews. Users can rate and review the restaurant and also edit or delete their existing reviews.
+
+### Models
+
+- `User.js`: The user model that defines the structure and behavior of a user object. It includes properties like username, email, password, and avatar. It also provides methods for authentication, fetching user data, and managing reviews.
+- `Restaurant.js`: The restaurant model that represents a restaurant object. It includes properties like name, image, cuisine, price range, and dietary restrictions. It provides methods for retrieving restaurant data and managing reviews.
+- `Review.js`: The review model that defines the structure of a review object. It includes properties like rating, body, image, and associated user and restaurant IDs. It provides methods for creating, updating, and deleting reviews.
+
+## Installation and Setup
+
+1. Clone the repository to your local machine.
+2. Install the necessary dependencies by running `npm install` in the project directory.
+3. Set up the database connection by configuring the database credentials in the `.env` file.
+4. Start the development server with `npm start`.
+
+## Technologies Used
+
+- React: JavaScript library for building user interfaces.
+- React Router: Library for handling client-side routing in a React application.
+- Axios: Promise-based HTTP client for making API requests.
+- HTML, CSS, JavaScript: Front-end technologies for building the user interface.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or bug reports, please open an issue or submit a pull request on GitHub.
+
+
