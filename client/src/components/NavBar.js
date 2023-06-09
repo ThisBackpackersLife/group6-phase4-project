@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import "./App.css";
 import Logo from "../Images/logo.png";
 import UserIcon from "../Images/UserIcon.png";
 
-function NavBar({user, data, toggleTheme}) {
+function NavBar({user, data, toggleTheme, isDarkMode}) {
+    const buttonText = isDarkMode ? "Light Mode" : "Dark Mode";
 
     return (
         <header>
@@ -15,7 +16,7 @@ function NavBar({user, data, toggleTheme}) {
                         <h3>Culinary Critic</h3>
                     </div>
                 </Link>
-                <button onClick={toggleTheme}>Toggle Theme</button>
+                <button className="sort-btn" onClick={toggleTheme}>{buttonText}</button>
                 <div className="nav-ul">
                     <div className="active">
                         <Link to="/" className="link">

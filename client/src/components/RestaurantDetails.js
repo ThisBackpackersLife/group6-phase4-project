@@ -35,9 +35,7 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
             getRestaurant(restaurant.id);
         }
         catch (error) {
-            if(error.response.status === 401){
-                alert("Invalid")
-            }
+            alert("Invalid Action")
         }
     }
 

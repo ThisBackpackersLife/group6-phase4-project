@@ -7,7 +7,24 @@
 
 .dark .nav{
     background: linear-gradient(to right, blue, #750c46);
-
+}
+.dark .restaurants {
+    color: black;
+}
+.dark .sort-btn {
+    color: white;
+}
+.dark .search-container {
+    color: black;
+}
+.dark .btn button {
+    color: white;
+}
+.dark .home-container {
+    color: black;
+}
+.dark .submit-btn {
+    color: white;
 }
 
 
