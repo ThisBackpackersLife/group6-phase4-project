@@ -21,12 +21,16 @@ Culinary Critic is a web application that allows users to discover and review re
 - `Restaurant.js`: The restaurant model that represents a restaurant object. It includes properties like name, image, cuisine, price range, and dietary restrictions. It provides methods for retrieving restaurant data and managing reviews.
 - `Review.js`: The review model that defines the structure of a review object. It includes properties like rating, body, image, and associated user and restaurant IDs. It provides methods for creating, updating, and deleting reviews.
 
+- 'models.py': Is the home to all the backend models. This is where you can find the table structure for the User, Restaurant, and Review classes. This file also includes all of the validations for the db, to prevent bad information being submitted by the user. 
+
 ## Installation and Setup
 
 1. Clone the repository to your local machine.
-2. Install the necessary dependencies by running `npm install` in the project directory.
-3. Set up the database connection by configuring the database credentials in the `.env` file.
-4. Start the development server with `npm start`.
+2. Install necessary dependencies for backend with pipenv install && pipenv shell
+3. Install the necessary dependencies by running `npm install` in the project directory.
+4. cd into server file and run python app.py followed by python seed.py
+5. Set up the database connection by configuring the database credentials in the `.env` file.
+6. Start the development server with `npm start`.
 
 ## Technologies Used
 
@@ -34,6 +38,7 @@ Culinary Critic is a web application that allows users to discover and review re
 - React Router: Library for handling client-side routing in a React application.
 - Axios: Promise-based HTTP client for making API requests.
 - HTML, CSS, JavaScript: Front-end technologies for building the user interface.
+- Python, Flask, Flask RESTful, SQLALCHEMY
 
 ## Contributing
 
