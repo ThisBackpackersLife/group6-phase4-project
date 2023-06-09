@@ -15,6 +15,20 @@ function App() {
     const [data, setUserData] = useState("")
     const [restaurants, setRestaurants] = useState("")
     const [reviews, setReviews] = useState("")
+    const [theme, setTheme] = useState('light')
+
+    const toggleTheme = () => {
+        if (theme === 'light') {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    };
+
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.body.className = theme;
+    }, [theme]);
 
     useEffect(() => {
         (async () => {
@@ -82,10 +96,11 @@ function App() {
 
     if(restaurants){
         return (
-            <div>
+            <div className={`App ${theme}`}>
                 <NavBar
                     user = {user}
                     data = {data}
+                    toggleTheme = {toggleTheme}
                 />
                 <Switch>
                     <Route path='/' exact component={Home} />

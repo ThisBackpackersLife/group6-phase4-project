@@ -15,8 +15,8 @@ function RestaurantReview({reviews, displayStars, deleteReview, editReview}){
                                 />
                             </div>
                             <br></br>
-                            <button onClick={() => deleteReview(review.id)} className="delete-btn">Delete</button>
-                            <button onClick={() => editReview(review.id)} className="edit-btn">Edit</button> {}
+                            <button onClick={() => deleteReview(review.id)} className="sort-btn">Delete</button>
+                            <button onClick={() => editReview(review.id)} className="sort-btn">Edit</button> {}
                         </div>
                     )
                 })}

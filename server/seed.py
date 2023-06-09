@@ -15,6 +15,9 @@ restaurant_address = open("./data/RestaurantsAddress.txt", "r")
 image_url = open("./data/ImageUrls.txt", "r")
 restaurant_name = open("./data/Restaurants.txt", "r")
 
+CUISINE = ["Italian", "Mexican", "Indian", "Japanese", "Chinese"]
+PRICE = ["cheap", "moderate", "expensive"]
+DIET = ["vegan","vegetarian","gluten-free"]
 
 if __name__ == '__main__':
     fake = Faker()
@@ -55,7 +58,10 @@ if __name__ == '__main__':
             restaurant = Restaurant(
                 name = names[i],
                 image = urls[i],
-                address = addresses[i]
+                address = addresses[i],
+                cuisine = rc(CUISINE),
+                price = rc(PRICE),
+                diet = rc(DIET)
             )
             restaurants.append(restaurant)
 

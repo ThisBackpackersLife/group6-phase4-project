@@ -23,13 +23,16 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
 
     const changeAvatar = async () => {
         try{
-            const response = await httpClient.post(`//localhost:5555/reviews`, {
+            await httpClient.post(`//localhost:5555/reviews`, {
                 body,
                 rating,
                 image,
                 user_id,
                 restaurant_id,
             })
+            setEditMode(false);
+            setEditReviewId(null);
+            getRestaurant(restaurant.id);
         }
         catch (error) {
             if(error.response.status === 401){
@@ -72,9 +75,12 @@ function RestaurantDetails({restaurant, displayStars, deleteReview, getRestauran
     return (
         <div className="res-details">
             <div className="res-img-div">
-                <img className="restaurant-image" src={restaurant.image}></img>
+                <img className="restaurant-image" alt="restaurant" src={restaurant.image}></img>
             </div>
-            <h1 className="res-name">{restaurant.name}</h1>
+            <div className="res-name">
+                <h1 >{restaurant.name}</h1>
+                <h2 >{restaurant.address}</h2>
+            </div>
             {check !== true ? (
                 <div className="btn" >
                     <button onClick={() => {

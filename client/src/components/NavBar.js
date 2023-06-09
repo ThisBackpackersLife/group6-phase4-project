@@ -4,7 +4,7 @@ import "./App.css";
 import Logo from "../Images/logo.png";
 import UserIcon from "../Images/UserIcon.png";
 
-function NavBar({user, data}) {
+function NavBar({user, data, toggleTheme}) {
 
     return (
         <header>
@@ -15,6 +15,7 @@ function NavBar({user, data}) {
                         <h3>Culinary Critic</h3>
                     </div>
                 </Link>
+                <button onClick={toggleTheme}>Toggle Theme</button>
                 <div className="nav-ul">
                     <div className="active">
                         <Link to="/" className="link">
@@ -31,7 +32,7 @@ function NavBar({user, data}) {
                             Restaurants
                         </Link>
                     </div>
-                    {user != "" ? (
+                    {user !== "" ? (
                         <div className="active user-icon-container">
                             <Link to="/profile" className="link">
                                 <img src={data.avatar} alt="No Logo Available"></img>

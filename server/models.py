@@ -74,6 +74,10 @@ class Restaurant( db.Model, SerializerMixin ):
     name = db.Column( db.String( 50 ), unique=True )
     image = db.Column( db.String )
     address = db.Column( db.String, unique=True )
+    cuisine = db.Column(db.String)
+    price = db.Column(db.String)
+    diet = db.Column(db.String)
+
     created_at = db.Column( db.DateTime, server_default=db.func.now() )
     updated_at = db.Column( db.DateTime, onupdate=db.func.now() )
 

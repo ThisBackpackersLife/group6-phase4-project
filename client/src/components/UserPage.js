@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import httpClient from "./httpClient";
 import "./profile.css";
 import ReviewBox from "./ReviewBox";
@@ -16,7 +16,7 @@ function UserPage({user, displayStars, data, deleteReview, sortReview, sortRevie
 
     const changeAvatar = async () => {
         try{
-            const response = await httpClient.patch(`//localhost:5555/users/${user.id}`, {
+            await httpClient.patch(`//localhost:5555/users/${user.id}`, {
                 avatar,
             })
             window.location.href = "/profile"
@@ -37,13 +37,13 @@ function UserPage({user, displayStars, data, deleteReview, sortReview, sortRevie
         return (
             <div className="user-container">
                 <div className="left-div">
-                    <img className="user-image" src={data.avatar}></img>
+                    <img className="user-image" alt="No user avatar"src={data.avatar}></img>
                     <br></br>
                     <div className="user-info">
                         <h2>{data.username}</h2>
                         <h3>{data.email}</h3>
                     </div>
-                    {change != false ? (
+                    {change !== false ? (
                         <div className="btn">
                             <input 
                                 type="text" 
@@ -86,7 +86,7 @@ function UserPage({user, displayStars, data, deleteReview, sortReview, sortRevie
                             data.reviews.map((review, index) => {
                                 return (
                                     <div className="review-div">
-                                        <Link  to={`/restaurant/${review.restaurant_id}`} >
+                                        <Link  to={`/restaurant/${review.restaurant_id}`} className="link" >
                                             <ReviewBox
                                                 key={index}
                                                 review = {data.reviews[index]}
